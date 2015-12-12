@@ -1,0 +1,15 @@
+diff -ur ../../old/compat-wireless-2015-12-03/drivers/net/wireless/ath/ath10k/core.c ./drivers/net/wireless/ath/ath10k/core.c
+--- a/drivers/net/wireless/ath/ath10k/core.c	2015-12-06 23:36:07.696995166 +0100
++++ b/drivers/net/wireless/ath/ath10k/core.c	2015-12-07 00:01:50.390388435 +0100
+@@ -1800,9 +1800,9 @@
+ 
+ 	ret = ath10k_core_get_board_id_from_otp(ar);
+ 	if (ret && ret != -EOPNOTSUPP) {
+-		ath10k_err(ar, "failed to get board id from otp: %d\n",
++		ath10k_err(ar, "failed to get board id from otp: %d, ignoring\n",
+ 			   ret);
+-		return ret;
++// 		return ret;
+ 	}
+ 
+ 	ret = ath10k_core_fetch_board_file(ar);
