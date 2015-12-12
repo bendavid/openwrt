@@ -86,6 +86,19 @@ define Device/DniImage
 endef
 DEVICE_VARS += KERNEL_SIZE NETGEAR_BOARD_ID NETGEAR_HW_ID DEVICE_BLOCK_SIZE DEVICE_PAGE_SIZE
 
+define Device/TpSafeImage
+	PROFILES += $$(DEVICE_NAME)
+	FILESYSTEMS := squashfs
+	KERNEL_SUFFIX := -uImage
+	KERNEL = kernel-bin | append-dtb | uImage none
+	KERNEL_NAME := zImage
+	TPLINK_BOARD_ID :=
+	IMAGES := factory.bin sysupgrade.bin
+	IMAGE/factory.bin := tplink-safe factory
+	IMAGE/sysupgrade.bin := tplink-safe sysupgrade
+endef
+DEVICE_VARS += TPLINK_BOARD_ID
+
 define Device/AP148
 	$(call Device/FitImage)
 	$(call Device/UbiFit)
@@ -102,6 +115,15 @@ define Device/AP148-legacy
 	BLOCKSIZE := 128KiB
 	PAGESIZE := 2048
 	BOARD_NAME := ap148
+endef
+
+define Device/C2600
+	$(call Device/TpSafeImage)
+	DEVICE_DTS := qcom-ipq8064-c2600
+	BLOCKSIZE := 128KiB
+	PAGESIZE := 2048
+	BOARD_NAME := c2600
+	TPLINK_BOARD_ID := C2600
 endef
 
 define Device/D7800
@@ -133,6 +155,6 @@ define Device/R7500
 	BOARD_NAME := r7500
 endef
 
-TARGET_DEVICES += AP148 AP148-legacy D7800 DB149 R7500
+TARGET_DEVICES += AP148 AP148-legacy C2600 D7800 DB149 R7500
 
 $(eval $(call BuildImage))
