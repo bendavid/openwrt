@@ -13,7 +13,8 @@ board=$(ipq806x_board_name)
 
 case "$board" in
 ap148 |\
-r7500)
+r7500 |\
+c2600)
 	ucidef_add_switch "switch0" \
 		"1:lan" "2:lan" "3:lan" "4:lan" "6@eth1" "5:wan" "0@eth0"
 	;;

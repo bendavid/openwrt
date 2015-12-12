@@ -320,6 +320,17 @@ define Build/netgear-dni
 	mv $@.new $@
 endef
 
+define Build/tplink-safe
+	$(STAGING_DIR_HOST)/bin/tplink-safeloader \
+		-B $(TPLINK_BOARD_ID) -V OpenWrt.$(REVISION) \
+		-k $(word 1,$^) \
+		-r $(word 2,$^) \
+		-j \
+		$(if $(findstring sysupgrade,$1),-S) \
+		-o $@.new
+	mv $@.new $@
+endef
+
 define Build/fit
 	$(TOPDIR)/scripts/mkits.sh \
 		-D $(DEVICE_NAME) -o $@.its -k $@ \
