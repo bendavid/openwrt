@@ -183,12 +183,10 @@
 					os-image@1f0000 {
 						label = "os-image";
 						reg = <0x1f0000 0x200000>;
-						read-only;
 					};
 					file-system@3f0000 {
 						label = "file-system";
 						reg = <0x3f0000 0x1b00000>;
-						read-only;
 					};
 					default-mac@1ef0000 {
 						label = "default-mac";
