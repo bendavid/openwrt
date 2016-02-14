@@ -1,7 +1,7 @@
-Index: compat-wireless-2015-12-03/drivers/net/wireless/ath/ath10k/core.c
+Index: compat-wireless-2016-01-10/drivers/net/wireless/ath/ath10k/core.c
 ===================================================================
---- compat-wireless-2015-12-03.orig/drivers/net/wireless/ath/ath10k/core.c
-+++ compat-wireless-2015-12-03/drivers/net/wireless/ath/ath10k/core.c
+--- compat-wireless-2016-01-10.orig/drivers/net/wireless/ath/ath10k/core.c
++++ compat-wireless-2016-01-10/drivers/net/wireless/ath/ath10k/core.c
 @@ -1183,9 +1183,6 @@ static int ath10k_core_fetch_firmware_fi
  {
  	int ret;
@@ -22,7 +22,7 @@ Index: compat-wireless-2015-12-03/drivers/net/wireless/ath/ath10k/core.c
  	ret = ath10k_core_fetch_firmware_files(ar);
  	if (ret) {
  		ath10k_err(ar, "could not fetch firmware files (%d)\n", ret);
-@@ -1798,17 +1798,20 @@ static int ath10k_core_probe_fw(struct a
+@@ -1798,11 +1798,14 @@ static int ath10k_core_probe_fw(struct a
  
  	ath10k_debug_print_hwfw_info(ar);
  
@@ -31,7 +31,6 @@ Index: compat-wireless-2015-12-03/drivers/net/wireless/ath/ath10k/core.c
 -		ath10k_err(ar, "failed to get board id from otp: %d\n",
 -			   ret);
 -		return ret;
--	}
 +	/* otp and board file not needed if calibration data is present */
 +	if (calret) {
 +		ret = ath10k_core_get_board_id_from_otp(ar);
@@ -40,16 +39,6 @@ Index: compat-wireless-2015-12-03/drivers/net/wireless/ath/ath10k/core.c
 +				ret);
 +			return ret;
 +		}
- 
--	ret = ath10k_core_fetch_board_file(ar);
--	if (ret) {
--		ath10k_err(ar, "failed to fetch board file: %d\n", ret);
--		goto err_free_firmware_files;
-+		ret = ath10k_core_fetch_board_file(ar);
-+		if (ret) {
-+			ath10k_err(ar, "failed to fetch board file: %d\n", ret);
-+			goto err_free_firmware_files;
-+		}
  	}
  
- 	ath10k_debug_print_board_info(ar);
+ 	ret = ath10k_core_fetch_board_file(ar);
