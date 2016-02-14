@@ -42,23 +42,8 @@ platform_do_upgrade() {
 
 	case "$board" in
 	c2600)
-		platform_do_upgrade_c2600 "$ARGV"
+		MTD_CONFIG_ARGS="-s 0x200000"
+		default_do_upgrade "$ARGV"
 		;;
 	esac
-}
-
-platform_do_upgrade_c2600() {
-	local kernpart="0:HLOS"
-	local rootfspart="rootfs"
-	
-	local kernel_mtd="$(find_mtd_index $kernpart)"
-	
-	local kerndev="/dev/mtd${kernel_mtd}"
-	local rootfsdev=$rootfspart
-	
-	PART_NAME="${kerndev}:${rootfsdev}"
-	MTD_CONFIG_ARGS="-s 0x200000"
-		
-	default_do_upgrade "$ARGV"
-	
 }
