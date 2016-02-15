@@ -125,9 +125,9 @@
 					spi-max-frequency = <50000000>;
 					reg = <0>;
 
-					SBL1@00000 {
+					SBL1@0 {
 						label = "SBL1";
-						reg = <0x00000 0x20000>;
+						reg = <0x0 0x20000>;
 						read-only;
 					};
 					MIBIB@20000 {
@@ -184,8 +184,8 @@
 						label = "os-image";
 						reg = <0x1f0000 0x200000>;
 					};
-					file-system@3f0000 {
-						label = "file-system";
+					rootfs@3f0000 {
+						label = "rootfs";
 						reg = <0x3f0000 0x1b00000>;
 					};
 					default-mac@1ef0000 {

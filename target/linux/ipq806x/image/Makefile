@@ -36,6 +36,11 @@ define Build/append-dtb
 	cat $(DTS_DIR)/$(DEVICE_DTS).dtb >> $@
 endef
 
+define Build/append-new-dtb
+       $(call Image/BuildDTB,../dts/$(DEVICE_DTS).dts,$@.dtb)
+       cat $@.dtb >> $@
+endef
+
 define Build/append-file
 	cat $(1) >> $@
 endef
@@ -90,7 +95,7 @@ define Device/TpSafeImage
 	PROFILES += $$(DEVICE_NAME)
 	FILESYSTEMS := squashfs
 	KERNEL_SUFFIX := -uImage
-	KERNEL = kernel-bin | append-dtb | uImage none
+	KERNEL = kernel-bin | append-new-dtb | uImage none
 	KERNEL_NAME := zImage
 	TPLINK_BOARD_ID :=
 	IMAGES := factory.bin sysupgrade.bin
