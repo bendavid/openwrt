@@ -42,6 +42,7 @@ platform_do_upgrade() {
 
 	case "$board" in
 	c2600)
+		PART_NAME="os-image:rootfs"
 		MTD_CONFIG_ARGS="-s 0x200000"
 		default_do_upgrade "$ARGV"
 		;;
