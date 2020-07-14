@@ -251,6 +251,26 @@ define Device/dlink_dir-878-a1
 endef
 TARGET_DEVICES += dlink_dir-878-a1
 
+define Device/dlink_dir-2660-a1
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  KERNEL_SIZE := 4096k
+  IMAGE_SIZE := 40960k
+  UBINIZE_OPTS := -E 5
+  DEVICE_VENDOR := D-Link
+  DEVICE_MODEL := DIR-2660
+  DEVICE_VARIANT := A1
+  DEVICE_PACKAGES := kmod-mt7615e kmod-mt7615-firmware \
+  	kmod-usb3 kmod-usb-ledtrig-usbport wpad-basic
+  KERNEL := $$(KERNEL) | uimage-padhdr 96
+  IMAGES += factory.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | \
+	check-size
+	
+endef
+TARGET_DEVICES += dlink_dir-2660-a1
+
 define Device/d-team_newifi-d2
   $(Device/uimage-lzma-loader)
   IMAGE_SIZE := 32448k

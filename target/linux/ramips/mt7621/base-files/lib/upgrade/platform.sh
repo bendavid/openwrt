@@ -44,6 +44,7 @@ platform_do_upgrade() {
 	case "$board" in
 	asus,rt-ac65p|\
 	asus,rt-ac85p|\
+	dlink,dir-2660-a1|\
 	hiwifi,hc5962|\
 	linksys,ea7500-v2|\
 	netgear,r6220|\
